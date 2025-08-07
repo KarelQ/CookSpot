@@ -8,7 +8,7 @@ const Nav = () => {
     const [isNavVisible, setNavVisible] = useState(true); // State to control nav visibility
 
     useEffect(() => {
-        const isLoggedIn = sessionStorage.getItem("sessionUserId");
+        const isLoggedIn = sessionStorage.getItem("sessionToken");
         console.log(isLoggedIn);
 
         if (isLoggedIn === null) {

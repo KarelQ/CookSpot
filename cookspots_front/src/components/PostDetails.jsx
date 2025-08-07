@@ -34,7 +34,7 @@ const PostDetails = ({ post, rate, book }) => {
 
     console.log(isOwner);
     const handleError = (e) => {
-        e.target.src = 'http://localhost:8080/api/img/default.png'; // Ścieżka do domyślnego obrazu
+        e.target.src = 'http://localhost:8080/auth/img/default.png'; // Ścieżka do domyślnego obrazu
     };
 
 
@@ -45,10 +45,10 @@ const PostDetails = ({ post, rate, book }) => {
         <section className={`${style.posts} rate book category`}>
             <div id={post.idPost}>
                 <div className={style["post-content"]}>
-                    {/*<img src={`http://localhost:8080/api/img/${post.image}`} alt="post image" className={style["post-image"]}/>*/}
+                    <img src={`http://localhost:8080/auth/img/${post.image}`} alt="post image" className={style["post-image"]}/>
                     <img
 
-                        src={`http://localhost:8080/api/img/${post.image}`}
+                        src={`http://localhost:8080/auth/img/${post.image}`}
                         alt="post image"
                         className={style['post-image']}
                         onError={handleError}

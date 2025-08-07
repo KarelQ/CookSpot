@@ -37,7 +37,6 @@ public class UserInfo {
     }
 
     public UserInfo() {
-
     }
 
     public void setRole(String role) {

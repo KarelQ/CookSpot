@@ -13,7 +13,7 @@ export  const getUserDetails = () => axios.get(REST_API_BASE_URL + "/user");
 
 export  const addUserDetails = (user_detail) => axios.post(REST_API_BASE_URL + "/userdetails", user_detail);
 
-export  const register = (user) => axios.post(REST_API_BASE_URL + "/register", user);
+export  const register = (user) => axios.post(REST_API_BASE_URL + "/addNewUser", user);
 
 
 
