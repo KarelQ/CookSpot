@@ -90,8 +90,12 @@ const AddPost = ({ messages }) => {
     async function savePost(e) {
         e.preventDefault();
 
-        const idUser = sessionStorage.getItem("sessionUserId");
-        console.log("idUser", idUser);
+        const idUser = "user1";
+        const createdAt = "2025-08-01";
+        const username = "user1";
+
+        // const idUser = sessionStorage.getItem("sessionUserId");
+        // console.log("idUser", idUser);
 
         // private String idPost;
         // private String title;
@@ -127,10 +131,16 @@ const AddPost = ({ messages }) => {
 
 
         try {
-            const response = await fetch("http://localhost:8080/api/upload", {
+            const token = sessionStorage.getItem("sessionToken");
+
+            const response = await fetch("http://localhost:8080/auth/upload", {
                 method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                },
                 body: formData,
             });
+
 
             if (response.ok) {
                 alert("File uploaded successfully!");
@@ -141,6 +151,7 @@ const AddPost = ({ messages }) => {
             console.error("Error uploading file:", error);
             alert("Error uploading file.");
         }
+
 
 
         const post = {
@@ -157,6 +168,8 @@ const AddPost = ({ messages }) => {
             like,
             dislike,
             idUser,
+            createdAt,
+            username,
         }
         console.log(post);
 

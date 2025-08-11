@@ -9,10 +9,24 @@ export const postListByUserId = (user_id) => axios.get(REST_API_BASE_URL+"/user/
 
 export const postListByCategoryId = (category_id) => axios.get(REST_API_BASE_URL+"/category/"+category_id);
 
-export const postDetailsById = (post_id) => axios.get(REST_API_BASE_URL + '/' + post_id);
+export const postDetailsById = (post_id) => axios.get(REST_API_BASE_URL + '/id/' + post_id);
 
 export const deletePostById = (post_id) => axios.delete(REST_API_BASE_URL + '/delete/' + post_id);
 
-export  const createPost = (post) => axios.post(REST_API_BASE_URL+'/addpost', post);
+
+
+
+
+export const createPost = (post) => {
+    const token = sessionStorage.getItem("sessionToken");
+    return axios.post(REST_API_BASE_URL + "/addpost", post, {
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    });
+};
+
+
+//export  const createPost = (post) => axios.post(REST_API_BASE_URL+'/addpost', post);
 
 //export  const saveImgFile = (img_) => axios.post(REST_API_BASE_URL+'/addpost', post);

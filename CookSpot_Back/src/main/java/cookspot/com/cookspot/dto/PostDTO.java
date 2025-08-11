@@ -1,6 +1,8 @@
 package cookspot.com.cookspot.dto;
 
 
+import jakarta.persistence.Entity;
+
 import java.util.List;
 import java.util.Set;
 

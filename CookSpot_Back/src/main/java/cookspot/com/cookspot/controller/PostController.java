@@ -7,6 +7,9 @@ import cookspot.com.cookspot.entity.Post;
 import cookspot.com.cookspot.service.PostService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -31,7 +34,7 @@ public class PostController {
 
 
 
-    @GetMapping("/auth/posts/{id}")
+    @GetMapping("/auth/posts/id/{id}")
     public PostDTO getPostDTOById(@PathVariable String id) {
         return postService.getPostDTOById(id);
     }
@@ -52,11 +55,36 @@ public class PostController {
 
 
 
+//    @PostMapping("/auth/posts/addpost")
+//    public ResponseEntity<PostDTO> createPost(@RequestBody PostDTO postDTO) {
+//        PostDTO savedPost = postService.savePost(postDTO);
+//        return new ResponseEntity<>(savedPost, HttpStatus.CREATED);
+//    }
+
     @PostMapping("/auth/posts/addpost")
-    public ResponseEntity<PostDTO> createPost(@RequestBody PostDTO postDTO) {
+    public ResponseEntity<?> addPost(@RequestBody PostDTO postDTO) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = null;
+        if (authentication != null && authentication.isAuthenticated()) {
+            Object principal = authentication.getPrincipal();
+            if (principal instanceof UserDetails) {
+                username = ((UserDetails) principal).getUsername();
+            } else {
+                username = principal.toString();
+            }
+        }
+
+        // ustaw username w postDto albo w encji Post
+        postDTO.setUsername(username);
+
+        // dalej logika zapisu posta
         PostDTO savedPost = postService.savePost(postDTO);
+
+        System.out.println( savedPost.toString());
+
         return new ResponseEntity<>(savedPost, HttpStatus.CREATED);
     }
+
 
 
 

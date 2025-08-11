@@ -2,10 +2,10 @@ const Post = ({ post }) => {
 
     return (
         <div id={post.idPost}>
-            {/*<img src={`http://localhost:8080/api/img/${post.image}`} alt="post image" />*/}
+            <img src={`http://localhost:8080/auth/img/${post.image}`} alt="post image" />
             <div>
                 <div className="post-desc">
-                    <h1><a href={`postpage/${post.idPost}`}>{post.title}</a></h1>
+                    <h1><a href={`/postpage/${post.idPost}`}>{post.title}</a></h1>
                     <h1>{post.idUserOwner}</h1>
                     <p>{post.description}</p>
                 </div>

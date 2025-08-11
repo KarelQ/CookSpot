@@ -45,7 +45,6 @@ const PostDetails = ({ post, rate, book }) => {
         <section className={`${style.posts} rate book category`}>
             <div id={post.idPost}>
                 <div className={style["post-content"]}>
-                    <img src={`http://localhost:8080/auth/img/${post.image}`} alt="post image" className={style["post-image"]}/>
                     <img
 
                         src={`http://localhost:8080/auth/img/${post.image}`}

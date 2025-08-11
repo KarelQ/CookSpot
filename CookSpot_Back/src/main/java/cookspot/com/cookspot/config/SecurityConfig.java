@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -49,6 +50,7 @@ public class SecurityConfig {
         http
                 // Disable CSRF (not needed for stateless JWT)
                 .csrf(csrf -> csrf.disable())
+                .cors(Customizer.withDefaults())
 
                 // Configure endpoint authorization
                 .authorizeHttpRequests(auth -> auth
@@ -57,15 +59,23 @@ public class SecurityConfig {
                                 "/auth/welcome",
                                 "/auth/addNewUser",
                                 "/auth/generateToken",
-                                "auth/posts",
-                                "/auth/posts/**",
-                                "/auth/img/**")
-                        .permitAll()
+                                "/auth/posts/id/**",
+                                "/auth/posts/category/**",
+                                "/auth/posts",
+                                "/auth/img/**",
+                                "/auth/category"
+                        ).permitAll()
 
                         // Role-based endpoints
-                        .requestMatchers("/auth/user/**").hasAuthority("ROLE_USER")
-                        .requestMatchers("/auth/posts/user/**").hasAuthority("ROLE_USER")
-                        .requestMatchers("/auth/admin/**").hasAuthority("ROLE_ADMIN")
+                        .requestMatchers(
+                                "/auth/user/**",
+                                "/auth/posts/user/**",
+                                "/auth/posts/addpost",
+                                "/auth/upload"
+                                ).hasAuthority("ROLE_USER")
+
+                        .requestMatchers("/auth/admin/**"
+                        ).hasAuthority("ROLE_ADMIN")
 
                         // All other endpoints require authentication
                         .anyRequest().authenticated()

@@ -23,14 +23,14 @@ public class CategoryController {
     }
 
 
-    @GetMapping("/api/category/names")
+    @GetMapping("/auth/category/names")
     public List<String> getAllPostsDTO() {
         return categoryService.getAllCategoriesNames();
     }
 
 
 
-    @GetMapping(("/api/category"))
+    @GetMapping(("/auth/category"))
     public List<Category> getAllCategories() {
         return categoryService.getAllCategories();
     }

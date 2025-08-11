@@ -72,8 +72,8 @@ public class PostService {
 
     public PostDTO savePost(PostDTO postDTO) {
 
-        //User user = userRepository.findById("1234").orElse(null);
-        UserInfo user = userRepository.findById(postDTO.getIdUser()).orElse(null);
+        UserInfo user = userRepository.findById("user1").orElse(null);
+        //UserInfo user = userRepository.findById(postDTO.getIdUser()).orElse(null);
 
         LocalDate today = LocalDate.now();
 
