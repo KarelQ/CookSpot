@@ -4,9 +4,12 @@ package cookspot.com.cookspot.controller;
 
 import cookspot.com.cookspot.dto.PostDTO;
 import cookspot.com.cookspot.entity.Post;
+import cookspot.com.cookspot.service.JwtService;
 import cookspot.com.cookspot.service.PostService;
+import cookspot.com.cookspot.service.UserInfoDetails;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,9 +23,12 @@ import java.util.List;
 @RestController
 public class PostController {
     private final PostService postService;
+    private final JwtService jwtService;
 
-    public PostController(PostService postService) {
+
+    public PostController(PostService postService, JwtService jwtService) {
         this.postService = postService;
+        this.jwtService = jwtService;
     }
 
 
@@ -54,6 +60,23 @@ public class PostController {
     }
 
 
+    @PostMapping("/auth/posts/addpost")
+    public ResponseEntity<PostDTO> createPost(@RequestBody PostDTO postDTO, @RequestHeader("Authorization") String authorizationHeader) {
+
+        String token = authorizationHeader.substring(7);
+
+        // wyciągnij idUser z tokena
+        String idUser = jwtService.extractIdUser(token);
+
+        System.out.println("===============================================================================");
+        System.out.println(idUser);
+
+        postDTO.setIdUser(idUser);
+
+        PostDTO savedPost = postService.savePost(postDTO);
+        return new ResponseEntity<>(savedPost, HttpStatus.CREATED);
+    }
+
 
 //    @PostMapping("/auth/posts/addpost")
 //    public ResponseEntity<PostDTO> createPost(@RequestBody PostDTO postDTO) {
@@ -61,29 +84,32 @@ public class PostController {
 //        return new ResponseEntity<>(savedPost, HttpStatus.CREATED);
 //    }
 
-    @PostMapping("/auth/posts/addpost")
-    public ResponseEntity<?> addPost(@RequestBody PostDTO postDTO) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = null;
-        if (authentication != null && authentication.isAuthenticated()) {
-            Object principal = authentication.getPrincipal();
-            if (principal instanceof UserDetails) {
-                username = ((UserDetails) principal).getUsername();
-            } else {
-                username = principal.toString();
-            }
-        }
+//    @PostMapping("/auth/posts/addpost")
+//    public ResponseEntity<?> addPost(@RequestBody PostDTO postDTO) {
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        String idUser = null;
+//        if (authentication != null && authentication.isAuthenticated()) {
+//            Object principal = authentication.getPrincipal();
+//            if (principal instanceof UserDetails) {
+//                idUser = ((UserDetails) principal).getUsername();
+//            } else {
+//                idUser = principal.toString();
+//            }
+//        }
+//
+//        // ustaw username w postDto albo w encji Post
+//        postDTO.setIdUser();
+//
+//        // dalej logika zapisu posta
+//        PostDTO savedPost = postService.savePost(postDTO);
+//
+//        System.out.println( savedPost.toString());
+//
+//        return new ResponseEntity<>(savedPost, HttpStatus.CREATED);
+//    }
 
-        // ustaw username w postDto albo w encji Post
-        postDTO.setUsername(username);
 
-        // dalej logika zapisu posta
-        PostDTO savedPost = postService.savePost(postDTO);
 
-        System.out.println( savedPost.toString());
-
-        return new ResponseEntity<>(savedPost, HttpStatus.CREATED);
-    }
 
 
 

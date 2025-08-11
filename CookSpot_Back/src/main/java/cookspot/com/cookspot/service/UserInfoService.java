@@ -49,4 +49,13 @@ public class UserInfoService implements UserDetailsService {
         repository.save(userInfo);
         return "User added successfully!";
     }
+
+    public String getIdUser(String email) {
+        Optional<UserInfo> userInfo = repository.findByEmail(email);
+        if (userInfo.isEmpty()) {
+            throw new UsernameNotFoundException("User not found with email: " + email);
+        }
+        return userInfo.get().getIdUser();
+    }
+
 }
