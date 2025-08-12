@@ -1,4 +1,5 @@
 import axios from "axios";
+import tokenAxios from "./TokenService.jsx";
 
 const REST_API_BASE_URL = 'http://localhost:8080/auth/posts';
 
@@ -17,14 +18,21 @@ export const deletePostById = (post_id) => axios.delete(REST_API_BASE_URL + '/de
 
 
 
-export const createPost = (post) => {
-    const token = sessionStorage.getItem("sessionToken");
-    return axios.post(REST_API_BASE_URL + "/addpost", post, {
-        headers: {
-            "Authorization": `Bearer ${token}`
-        }
-    });
+
+
+export const createPost = (post) => {return tokenAxios.post(`${REST_API_BASE_URL}/addpost`, post);
 };
+
+
+
+// export const createPost = (post) => {
+//     const token = sessionStorage.getItem("sessionToken");
+//     return axios.post(REST_API_BASE_URL + "/addpost", post, {
+//         headers: {
+//             "Authorization": `Bearer ${token}`
+//         }
+//     });
+// };
 
 
 //export  const createPost = (post) => axios.post(REST_API_BASE_URL+'/addpost', post);
