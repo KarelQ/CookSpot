@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {category} from "../services/CategoryService.jsx";
+import Banner from "./Banner.jsx";
 
 
 
@@ -20,6 +21,7 @@ const ExploreCategory = () => {
 
     return (
         <main>
+            <Banner message={"Explore our Categories"}/>
             <section className={"posts" + " " + "categories"}>
                 {categories.map((category) => (
                     <div key={category.id} id={category.id}>
@@ -29,7 +31,7 @@ const ExploreCategory = () => {
                         />
                         <div className={"category-desc"}>
                             <h1>
-                                <a href={`category/${category.id}`}>
+                                <a href={`category/${category.id}/${category.categoryName}`}>
                                     {category.categoryName}
                                 </a>
                             </h1>

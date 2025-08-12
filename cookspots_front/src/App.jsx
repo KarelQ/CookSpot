@@ -36,7 +36,7 @@ function App() {
                     <Route path="/addpost" element={<> <Nav/> <AddPost/> </>}/>
                     <Route path="/postpage/:id" element={<> <Nav/>< PostPage/> </>}/>
                     <Route path="/explore" element={<> <Nav/>< ExploreCategory/> </>}/>
-                    <Route path="/category/:id" element={<> <Nav/>< ExploreCategoryPosts/> </>}/>
+                    <Route path="/category/:id/:name" element={<> <Nav/>< ExploreCategoryPosts/> </>}/>
                     <Route path="/myprofile" element={<> <Nav/>< MyProfile/> </>}/>
                     <Route path="/adddetails" element={<> <Nav/>< ModifyDetails/> </>}/>
 

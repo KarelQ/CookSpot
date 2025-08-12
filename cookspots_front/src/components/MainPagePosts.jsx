@@ -16,7 +16,10 @@ const MainPagePosts = () => {
         }, []);
 
     return (
+        <main>
             <PostList posts={posts} message="What would you like to cook today?" />
+        </main>
+
     )
 }
 
