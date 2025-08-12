@@ -25,24 +25,22 @@ const Login = () => {
         }
         console.log(user);
 
-        login(user).then((response) => {
-            console.log(response.data);
+        login(user)
+            .then((response) => {
+                console.log(response.data);
 
-            if(response.data !== ""){
-                // sessionStorage.setItem("sessionUserId", response.data[0]);
-                // sessionStorage.setItem("sessionUsername", response.data[1]);
-                // sessionStorage.setItem("sessionIdRole", response.data[2]);
+                // jeśli serwer zwróci token
                 sessionStorage.setItem("sessionToken", response.data);
-
                 navigate(`/mainpage`);
-
-            } else {
-                setMessages(["Wrong email or password"]);
-            }
-            console.log(sessionStorage.getItem("sessionUserId"));
-
-
-        });
+            })
+            .catch((error) => {
+                if (error.response && error.response.status === 401) {
+                    setMessages(["Wrong email or password"]);
+                } else {
+                    setMessages(["Unexpected error occurred"]);
+                }
+                console.error(error);
+            });
     }
 
     return (
