@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
 import {postList} from "../services/PostService.jsx";
 import PostList from "../components/PostList";
+import Banner from "./Banner.jsx";
 
 
 const MainPagePosts = () => {
@@ -15,7 +16,7 @@ const MainPagePosts = () => {
         }, []);
 
     return (
-        <PostList posts={posts} />
+            <PostList posts={posts} message="What would you like to cook today?" />
     )
 }
 

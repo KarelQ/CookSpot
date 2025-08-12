@@ -1,3 +1,5 @@
+import Banner from "./Banner.jsx";
+
 const Post = ({ post }) => {
 
     return (
@@ -34,9 +36,10 @@ const Post = ({ post }) => {
 };
 
 
-const PostList = ({ posts }) => {
+const PostList = ({ posts, message }) => {
     return (
         <main>
+            <Banner message={message}/>
             <section className="posts">
                 {posts.map((post) => (
                     <Post key={post.idPost} post={post} />
