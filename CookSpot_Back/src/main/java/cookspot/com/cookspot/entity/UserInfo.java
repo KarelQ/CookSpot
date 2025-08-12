@@ -12,12 +12,12 @@ import org.hibernate.annotations.ColumnDefault;
 @Table(name = "users")
 public class UserInfo {
     @Id
-    @Column(name = "id_user", nullable = false, length = 30)
+    @Column(name = "id_user", nullable = false, length = 50)
     private String idUser;
 
-    @ColumnDefault("'USER'")
+    @ColumnDefault("ROLE_USER")
     @Column(name = "role", nullable = false, length = 15)
-    private String role;
+    private String role =  "ROLE_USER";
 
     @Column(name = "email", nullable = false, length = 100)
     private String email;

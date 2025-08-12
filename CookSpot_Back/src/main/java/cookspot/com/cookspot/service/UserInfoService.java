@@ -45,6 +45,7 @@ public class UserInfoService implements UserDetailsService {
     // Add any additional methods for registering or managing users
     public String addUser(UserInfo userInfo) {
         // Encrypt password before saving
+        userInfo.setRole("ROLE_USER");
         userInfo.setPassword(encoder.encode(userInfo.getPassword()));
         repository.save(userInfo);
         return "User added successfully!";

@@ -11,6 +11,8 @@ const Register = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [confPassword, setConfPassword] = useState("");
+    const role = "default";
+
 
     const navigate = useNavigate();
 
@@ -29,6 +31,7 @@ const Register = () => {
             username,
             password,
             idUser,
+            role,
         }
         console.log(user);
 
@@ -75,7 +78,7 @@ const Register = () => {
                         onChange={(e) => setPassword(e.target.value)}
                     />
                     <input
-                        name="conf_password"
+                        name="conf_pakssword"
                         type="password"
                         placeholder="Repeat password"
                         className={style['input-text']}
