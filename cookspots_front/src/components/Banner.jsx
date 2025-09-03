@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import SearchBar from "./SearchBar.jsx";
 
 
 const Header = styled.div`
@@ -30,6 +31,7 @@ const Banner = ({ message }) => {
     return (
         <Header>
             <WelcomeText>{message}</WelcomeText>
+            <SearchBar></SearchBar>
         </Header>
     );
 };
