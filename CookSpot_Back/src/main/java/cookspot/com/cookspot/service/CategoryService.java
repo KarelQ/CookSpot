@@ -3,7 +3,7 @@ package cookspot.com.cookspot.service;
 
 import cookspot.com.cookspot.entity.Category;
 import cookspot.com.cookspot.repository.CategoryRepository;
-import lombok.AllArgsConstructor;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

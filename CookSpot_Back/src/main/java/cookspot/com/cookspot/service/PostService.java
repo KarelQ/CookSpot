@@ -103,7 +103,7 @@ public class PostService {
         post.setImage(postDTO.getImage());
         post.setCreatedAt(formattedDate);
 
-        System.out.println(post.toString());
+        //System.out.println(post.toString());
 
         Post savedPost = postRepository.save(post);
         return this.convertPostToPostDTO(post);
@@ -135,5 +135,10 @@ public class PostService {
     public List<Post> getPostDTOByCategoryId(String id) {
         Set<Category> category = categoryRepository.findById(id).stream().collect(Collectors.toSet());
         return postRepository.findByPostCategoriesList(category);
+    }
+
+    public boolean isOwner(String idPost, String idUser) {
+        Post post = postRepository.findById(idPost).orElse(null);
+        return post != null && post.getUser().getIdUser().equals(idUser);
     }
 }

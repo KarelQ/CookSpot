@@ -15,13 +15,7 @@ export const postDetailsById = (post_id) => axios.get(REST_API_BASE_URL + '/id/'
 export const deletePostById = (post_id) => axios.delete(REST_API_BASE_URL + '/delete/' + post_id);
 
 
-
-
-
-
-
-export const createPost = (post) => {return tokenAxios.post(`${REST_API_BASE_URL}/addpost`, post);
-};
+export const createPost = (post) => {return tokenAxios.post(`${REST_API_BASE_URL}/addpost`, post);};
 
 
 

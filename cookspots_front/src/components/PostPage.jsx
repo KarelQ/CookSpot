@@ -1,68 +1,62 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import PostDetails from "./PostDetails.jsx";
-import {useParams} from "react-router-dom";
-import {postDetailsById} from "../services/PostService.jsx";
-import Error from "./Error.jsx";
+import { useParams } from "react-router-dom";
+import { postDetailsById } from "../services/PostService.jsx";
 
+import Error from "./Error.jsx";
+import {checkUserInteractions} from "../services/UserInteractionService.jsx";
 
 const PostPage = () => {
     const { id } = useParams();
 
-    const [post, setPost] = useState([]);
+    const [post, setPost] = useState(null);
+    const [interactions, setInteractions] = useState({
+        idUser: "non",
+        idPost: "non",
+        booked: false,
+        isLiked: 0,
+        owner: false });
     const [error, setError] = useState(null);
 
-// useEffect(() => {
-//     if (id) {
-//         console.log("id", id);
-//
-//         // Define multiple API calls
-//         const fetchPostDetails = postDetailsById(id);
-//
-//         Promise.all([fetchPostDetails])
-//             .then(([postResponse]) => {
-//                 // Process both responses
-//                 setPost({
-//                     ...postResponse.data,
-//                 });
-//             })
-//             .catch((error) => {
-//                 console.error(error);
-//                 setError("Failed to fetch post or related data.");
-//             });
-//     }
-// }, [id]);
-
-
-
-
     useEffect(() => {
-            if (id) {
-                console.log("id", id);
-                postDetailsById(id)
-                    .then((response) => {
-                        setPost(response.data);
-                    })
-                    .catch((error) => {
-                        console.error(error);
-                        setError("Failed to fetch post.");
-                    });
-            }
-        }, [id]);
+        if (id) {
+            postDetailsById(id)
+                .then((response) => setPost(response.data))
+                .catch((err) => {
+                    console.error(err);
+                    setError("Failed to fetch post.");
+                });
 
-
-
-        if (error) {
-            return (<Error error={error} />);
+            checkUserInteractions(id)
+                .then((response) => {
+                    // zakładam, że response.data wygląda np. { book: true, rate: 5, owner: false }
+                    setInteractions(response.data);
+                })
+                .catch((err) => {
+                    console.error(err);
+                    setError("Failed to fetch post interactions.");
+                });
         }
-    const rate = 1;
-    const book = true;
-    const isAdmin = true;
+    }, [id]);
+
+    if (error) {
+        return <Error error={error} />;
+    }
+
+    if (!post) {
+        return <div>Loading...</div>;
+    }
+
+    console.log(interactions);
 
     return (
-        <PostDetails post={post} rate={rate} book={book} isAdmin={isAdmin}/>
-    )
+        <PostDetails
+            post={post}
+            book={interactions.booked}
+            rate={interactions.isLiked}
+            owner={interactions.owner}
+        />
+    );
+};
 
-
-
-}
 export default PostPage;

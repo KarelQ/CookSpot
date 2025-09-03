@@ -5,7 +5,7 @@ import cookspot.com.cookspot.entity.UserInfo;
 import cookspot.com.cookspot.service.JwtService;
 import cookspot.com.cookspot.service.UserInfoService;
 
-import lombok.RequiredArgsConstructor;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
