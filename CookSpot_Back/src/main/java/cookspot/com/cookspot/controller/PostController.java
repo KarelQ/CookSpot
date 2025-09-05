@@ -47,7 +47,7 @@ public class PostController {
     public ResponseEntity<PostDTO> getPostDTOById(@PathVariable String id) {
         PostDTO post = postService.getPostDTOById(id);
         if (post == null) {
-            return ResponseEntity.notFound().build(); // 404 Not Found
+            return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(post);
     }

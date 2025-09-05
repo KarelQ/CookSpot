@@ -8,7 +8,7 @@ const Post = ({ post }) => {
             <div>
                 <div className="post-desc">
                     <h1><a href={`/postpage/${post.idPost}`}>{post.title}</a></h1>
-                    <h1>{post.idUserOwner}</h1>
+                    <h1>{post.username}</h1>
                     <p>{post.description}</p>
                 </div>
 
