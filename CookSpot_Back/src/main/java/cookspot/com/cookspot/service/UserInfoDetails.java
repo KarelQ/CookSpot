@@ -15,11 +15,13 @@ public class UserInfoDetails implements UserDetails {
 
     private String username; // Changed from 'name' to 'email' for clarity
     private String password;
+    private String idUser;
     private List<GrantedAuthority> authorities;
 
     public UserInfoDetails(UserInfo userInfo) {
         this.username = userInfo.getEmail(); // Use email as username
         this.password = userInfo.getPassword();
+        this.idUser = userInfo.getIdUser();
         this.authorities = List.of(userInfo.getRole().split(","))
                 .stream()
                 .map(SimpleGrantedAuthority::new)
@@ -60,4 +62,9 @@ public class UserInfoDetails implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+    public String getIdUser(){
+        return idUser;
+    }
+
 }

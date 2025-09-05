@@ -31,8 +31,7 @@ public class PostController {
         this.postService = postService;
         this.jwtService = jwtService;
     }
-
-
+    
 
     @GetMapping("/auth/posts")
     public ResponseEntity<List<PostDTO>> getAllPostsDTO() {
@@ -52,14 +51,29 @@ public class PostController {
         return ResponseEntity.ok(post);
     }
 
-    @GetMapping("/auth/posts/user/{id}")
-    public ResponseEntity<List<Post>> getPostDTOByUserId(@PathVariable String id) {
-        List<Post> posts = postService.getPostsByUserId(id);
+    @GetMapping("/auth/posts/user")
+    public ResponseEntity<List<Post>> getPostDTOByUserId(@RequestHeader("Authorization") String authorizationHeader) {
+        String idUser = jwtService.extractIdUserFromHeader(authorizationHeader);
+        List<Post> posts = postService.getPostsByUserId(idUser);
         if (posts == null || posts.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.ok(posts);
     }
+
+
+//    @GetMapping("/auth/posts/user")
+//    public ResponseEntity<List<Post>> getPostDTOByUserId(Authentication authentication) {
+//        UserInfoDetails userDetails = (UserInfoDetails) authentication.getPrincipal();
+//        String idUser = userDetails.getIdUser();
+//        List<Post> posts = postService.getPostsByUserId(idUser);
+//        if (posts == null || posts.isEmpty()) {
+//            return ResponseEntity.noContent().build();
+//        }
+//        return ResponseEntity.ok(posts);
+//    }
+
+
 
 
 
