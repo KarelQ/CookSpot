@@ -7,6 +7,7 @@ import cookspot.com.cookspot.entity.Post;
 import cookspot.com.cookspot.service.JwtService;
 import cookspot.com.cookspot.service.PostService;
 import cookspot.com.cookspot.service.UserInfoDetails;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -25,7 +26,7 @@ public class PostController {
     private final PostService postService;
     private final JwtService jwtService;
 
-
+    @Autowired
     public PostController(PostService postService, JwtService jwtService) {
         this.postService = postService;
         this.jwtService = jwtService;
@@ -34,22 +35,30 @@ public class PostController {
 
 
     @GetMapping("/auth/posts")
-    public List<PostDTO> getAllPostsDTO() {
-        return postService.getAllPostsDTO();
+    public ResponseEntity<List<PostDTO>> getAllPostsDTO() {
+        List<PostDTO> posts = postService.getAllPostsDTO();
+        if (posts == null || posts.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(posts);
     }
-
-
 
     @GetMapping("/auth/posts/id/{id}")
-    public PostDTO getPostDTOById(@PathVariable String id) {
-        return postService.getPostDTOById(id);
+    public ResponseEntity<PostDTO> getPostDTOById(@PathVariable String id) {
+        PostDTO post = postService.getPostDTOById(id);
+        if (post == null) {
+            return ResponseEntity.notFound().build(); // 404 Not Found
+        }
+        return ResponseEntity.ok(post);
     }
 
-
-
     @GetMapping("/auth/posts/user/{id}")
-    public List<Post> getPostDTOByUserId(@PathVariable String id) {
-        return postService.getPostsByUserId(id);
+    public ResponseEntity<List<Post>> getPostDTOByUserId(@PathVariable String id) {
+        List<Post> posts = postService.getPostsByUserId(id);
+        if (posts == null || posts.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(posts);
     }
 
 
