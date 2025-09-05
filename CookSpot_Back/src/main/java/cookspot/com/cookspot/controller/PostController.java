@@ -31,7 +31,7 @@ public class PostController {
         this.postService = postService;
         this.jwtService = jwtService;
     }
-    
+
 
     @GetMapping("/auth/posts")
     public ResponseEntity<List<PostDTO>> getAllPostsDTO() {

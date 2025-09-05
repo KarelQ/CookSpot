@@ -190,7 +190,7 @@ const AddPost = ({ messages }) => {
             <main>
                 <div className={style.header}>
                     <div>
-                        <h1 className={style["welcome-text"]}>Add Post
+                        <h1 className={style["welcome-text"]}>Add New Recipe
 
                         </h1>
                     </div>

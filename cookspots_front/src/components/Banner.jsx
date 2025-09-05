@@ -16,15 +16,6 @@ const WelcomeText = styled.h1`
   color: #ffffff;
 `;
 
-const Messages = styled.div`
-  text-decoration: none;
-  text-align: center;
-  width: 80%;
-  font-size: 7px;
-  color: #ff2100;
-  padding: 7px;
-`;
-
 const Banner = ({ message }) => {
     if (!message) return null;
 
