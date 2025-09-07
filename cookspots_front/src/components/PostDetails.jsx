@@ -7,9 +7,12 @@ import BookmarkContainer from "./BookmarkContainer.jsx";
 import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {deletePostById} from "../services/PostService.jsx";
+import StarRating from "./StatRating.jsx";
+import CommentsList from "./CommentList.jsx";
+import Banner from "./Banner.jsx";
 
 
-const PostDetails = ({ post, rate, book }) => {
+const PostDetails = ({ post, rate, book, stars, isComment }) => {
     const navigate = useNavigate();
     const [isOwner, setIsOwner] = useState(false);
 
@@ -28,7 +31,7 @@ const PostDetails = ({ post, rate, book }) => {
             console.error("Error deleting post:", error);
         });
     };
-    if (!post || !post.categoryNames) {
+    if (!post || !post.categoryNames || book == null || isComment == null) {
         return <Loading/>; // Show a loading state
     }
 
@@ -59,6 +62,11 @@ const PostDetails = ({ post, rate, book }) => {
                         </div>
                         <span>{post.username}</span>
                         <div className={style["place-holder"]}>xxx</div>
+                        <div className={style["place-holder"]}>xxx</div>
+                        <div>
+                            <i className="material-symbols-outlined">star</i>
+                            <span>{post.starRating ?? 0}</span>
+                        </div>
                         <div>
                             <i className="material-symbols-outlined">signal_cellular_alt</i>
                             <span>{post.difficulty}</span>
@@ -90,7 +98,6 @@ const PostDetails = ({ post, rate, book }) => {
                             >thumb_down</i>
                         </div>
                     </div>
-
                 <BookmarkContainer postId={post.idPost}  initialBookmarked={book}/>
 
 
@@ -128,15 +135,15 @@ const PostDetails = ({ post, rate, book }) => {
                     </div>
                 )}
 
-                <div className={style["stars"]}>
-                    <i className="material-symbols-outlined">star</i>
-                    <i className="material-symbols-outlined">star</i>
-                    <i className="material-symbols-outlined">star</i>
-                    <i className="material-symbols-outlined">star</i>
-                    <i className="material-symbols-outlined">star</i>
-                </div>
+
+                <StarRating idPost={post.idPost} vote={stars}></StarRating>
+
+
+
             </div>
         </section>
+            <Banner message={"Comments"} noSerchbar={true}></Banner>
+            <CommentsList idPost={post.idPost} isCommentedByLoggedUser={isComment}></CommentsList>
         </main>
     );
 };

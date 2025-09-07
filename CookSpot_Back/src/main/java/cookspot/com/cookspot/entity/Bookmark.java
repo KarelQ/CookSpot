@@ -9,8 +9,6 @@ public class Bookmark {
     @EmbeddedId
     private BookmarkId id;
 
-
-
     public BookmarkId getId() {
         return id;
     }

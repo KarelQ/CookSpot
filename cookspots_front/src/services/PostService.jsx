@@ -17,7 +17,9 @@ export const deletePostById = (post_id) => axios.delete(REST_API_BASE_URL + '/de
 
 export const createPost = (post) => {return tokenAxios.post(`${REST_API_BASE_URL}/addpost`, post);};
 
-
+export const getUserBookmarks = () => {
+    return tokenAxios.get(`${REST_API_BASE_URL}/bookmarks/get`);
+};
 
 // export const createPost = (post) => {
 //     const token = sessionStorage.getItem("sessionToken");

@@ -4,6 +4,7 @@ package cookspot.com.cookspot.controller;
 
 import cookspot.com.cookspot.dto.PostDTO;
 import cookspot.com.cookspot.entity.Post;
+import cookspot.com.cookspot.service.BookmarkService;
 import cookspot.com.cookspot.service.JwtService;
 import cookspot.com.cookspot.service.PostService;
 import cookspot.com.cookspot.service.UserInfoDetails;
@@ -18,18 +19,20 @@ import org.springframework.web.bind.annotation.*;
 
 
 import java.util.List;
-
+import java.util.stream.Collectors;
 
 
 @RestController
 public class PostController {
     private final PostService postService;
     private final JwtService jwtService;
+    private final BookmarkService bookmarkService;
 
     @Autowired
-    public PostController(PostService postService, JwtService jwtService) {
+    public PostController(PostService postService, JwtService jwtService,  BookmarkService bookmarkService) {
         this.postService = postService;
         this.jwtService = jwtService;
+        this.bookmarkService = bookmarkService;
     }
 
 
@@ -60,6 +63,22 @@ public class PostController {
         }
         return ResponseEntity.ok(posts);
     }
+
+    @GetMapping("/auth/posts/bookmarks/get")
+    public ResponseEntity<List<PostDTO>> getBookmarkedPostDTOByUserId(@RequestHeader("Authorization") String authorizationHeader) {
+        String idUser = jwtService.extractIdUserFromHeader(authorizationHeader);
+        List<Post> posts = bookmarkService.getBookmarkedPostsByUserId(idUser);
+        if (posts == null || posts.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+
+        return ResponseEntity.ok(posts.stream()
+                .map(postService::convertPostToPostDTO)
+                .collect(Collectors.toList()));
+
+
+    }
+
 
 
 //    @GetMapping("/auth/posts/user")

@@ -8,8 +8,8 @@ import cookspot.com.cookspot.dto.PostDTO;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -29,7 +29,7 @@ public class PostService {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    private PostDTO convertPostToPostDTO(Post post) {
+    public PostDTO convertPostToPostDTO(Post post) {
         PostDTO postDTO = new PostDTO();
 
         postDTO.setIdPost(post.getIdPost());
@@ -42,10 +42,11 @@ public class PostService {
         postDTO.setDifficulty(post.getDifficulty());
         postDTO.setNumberOfServings(post.getNumberOfServings());
         postDTO.setCreatedAt(post.getCreatedAt());
-        postDTO.setLike(post.getLike());
+        postDTO.setLike(post.getLikes());
         postDTO.setDislike(post.getDislike());
         postDTO.setUsername(post.getUser().getUsername());
         postDTO.setIdUser(post.getUser().getIdUser());
+        postDTO.setStarRating(post.getStarsScore());
         postDTO.setCategoryNames(
                 post.getPostCategoriesList()
                         .stream()
@@ -61,6 +62,7 @@ public class PostService {
     public List<PostDTO> getAllPostsDTO(){
         return postRepository.findAll()
                 .stream()
+                .sorted(Comparator.comparing(Post::getStarsScore).reversed())
                 .map(this::convertPostToPostDTO)
                 .collect(Collectors.toList());
     }
@@ -96,7 +98,7 @@ public class PostService {
         post.setPostCategoriesList(category.stream().collect(Collectors.toSet()));
 
 
-        post.setLike(0);
+        post.setLikes(0);
         post.setDislike(0);
         post.setUser(user);
 

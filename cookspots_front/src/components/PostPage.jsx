@@ -15,7 +15,10 @@ const PostPage = () => {
         idPost: "non",
         booked: false,
         isLiked: 0,
-        owner: false });
+        owner: false,
+        stars: 0,
+        comment: false}
+    );
     const [error, setError] = useState(null);
 
     useEffect(() => {
@@ -55,6 +58,8 @@ const PostPage = () => {
             book={interactions.booked}
             rate={interactions.isLiked}
             owner={interactions.owner}
+            stars={interactions.stars}
+            isComment={interactions.comment}
         />
     );
 };

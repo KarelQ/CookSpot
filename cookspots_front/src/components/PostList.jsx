@@ -18,8 +18,8 @@ const Post = ({ post }) => {
                         <span>{post.difficulty}</span>
                     </div>
                     <div>
-                        <i className="material-symbols-outlined">thumb_up</i>
-                        <span>{post.like}</span>
+                        <i className="material-symbols-outlined">star</i>
+                        <span>{post.starRating ?? 0}</span>
                     </div>
                     <div>
                         <i className="material-symbols-outlined">timer</i>

@@ -1,17 +1,19 @@
 import React, { useState } from "react";
 import style from "/src/css/post-detales.module.css";
+import {bookmarkUpdate} from "../services/UserInteractionService.jsx";
 
 const BookmarkContainer = ({ postId, initialBookmarked }) => {
     const [bookmarked, setBookmarked] = useState(initialBookmarked);
 
-    const handleBookmarkClick = () => {
-        fetch(`/bookmarkpost/${postId}`)
-            .then(() => {
-                setBookmarked((prev) => !prev);
-            })
-            .catch((error) => {
-                console.error("Error updating bookmark:", error);
+    const handleBookmarkClick = async () => {
+        try {
+            await bookmarkUpdate({
+                idPost: postId
             });
+            setBookmarked((prev) => !prev);
+        } catch (error) {
+            console.error("Error updating bookmark:", error);
+        }
     };
 
     return (

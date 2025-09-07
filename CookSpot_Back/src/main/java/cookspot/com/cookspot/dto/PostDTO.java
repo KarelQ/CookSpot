@@ -22,9 +22,10 @@ public class PostDTO {
     private Integer dislike;
     private String username;
     private String idUser;
+    private Float starRating;
     private Set<String> categoryNames;
 
-    public PostDTO(String idPost, String title, String description, String ingredients, String recipe, String image, String prepTime, String difficulty, Integer numberOfServings, String createdAt, Integer like, Integer dislike, String username, String idUser, Set<String> categoryNames) {
+    public PostDTO(String idPost, String title, String description, String ingredients, String recipe, String image, String prepTime, String difficulty, Integer numberOfServings, String createdAt, Integer like, Integer dislike, String username, String idUser, Set<String> categoryNames, Float starRating ) {
         this.idPost = idPost;
         this.title = title;
         this.description = description;
@@ -40,6 +41,7 @@ public class PostDTO {
         this.username = username;
         this.idUser = idUser;
         this.categoryNames = categoryNames;
+        this.starRating = starRating;
     }
 
     public PostDTO() {
@@ -163,6 +165,14 @@ public class PostDTO {
 
     public void setCategoryNames(Set<String> categoryNames) {
         this.categoryNames = categoryNames;
+    }
+
+    public Float getStarRating() {
+        return starRating;
+    }
+
+    public void setStarRating(Float starRating) {
+        this.starRating = starRating;
     }
 
     @Override

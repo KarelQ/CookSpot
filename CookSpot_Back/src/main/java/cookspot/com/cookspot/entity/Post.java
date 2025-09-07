@@ -46,7 +46,7 @@ public class Post {
 
     @ColumnDefault("0")
     @Column(name = "likes", nullable = false)
-    private Integer like;
+    private Integer likes;
 
     @ColumnDefault("0")
     @Column(name = "dislike", nullable = false)
@@ -65,6 +65,17 @@ public class Post {
             inverseJoinColumns = @JoinColumn(name = "id_category"))
     Set<Category> postCategoriesList;
 
+    @ColumnDefault("0")
+    @Column(name = "stars_score")
+    private Float starsScore;
+
+    public Float getStarsScore() {
+        return starsScore;
+    }
+
+    public void setStarsScore(Float starsScore) {
+        this.starsScore = starsScore;
+    }
 
 
 //    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
@@ -88,7 +99,7 @@ public class Post {
         this.difficulty = difficulty;
         this.numberOfServings = numberOfServings;
         this.createdAt = createdAt;
-        this.like = like;
+        this.likes = like;
         this.dislike = dislike;
         this.user = user;
         this.postCategoriesList = postCategoriesList;
@@ -177,12 +188,12 @@ public class Post {
         this.createdAt = createdAt;
     }
 
-    public Integer getLike() {
-        return like;
+    public Integer getLikes() {
+        return likes;
     }
 
-    public void setLike(Integer like) {
-        this.like = like;
+    public void setLikes(Integer like) {
+        this.likes = like;
     }
 
     public UserInfo getUser() {
@@ -222,7 +233,7 @@ public class Post {
                 ", difficulty='" + difficulty + '\'' +
                 ", numberOfServings=" + numberOfServings +
                 ", createdAt='" + createdAt + '\'' +
-                ", like=" + like +
+                ", like=" + likes +
                 ", dislike=" + dislike +
                 ", user=" + user +
                 ", postCategoriesList=" + postCategoriesList +

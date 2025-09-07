@@ -15,6 +15,7 @@ import ExploreCategory from "./components/ExploreCategory.jsx";
 import ExploreCategoryPosts from "./components/ExploreCategoryPosts.jsx";
 import Logout from "./components/Logout.jsx";
 import ModifyDetails from "./components/ModifyDetails.jsx";
+import BookmarksPage from "./components/BookmarksPage.jsx";
 
 
 function App() {
@@ -40,6 +41,7 @@ function App() {
                     <Route path="/category/:id/:name" element={<> <Nav/>< ExploreCategoryPosts/> </>}/>
                     <Route path="/myprofile" element={<> <Nav/>< MyProfile/> </>}/>
                     <Route path="/adddetails" element={<> <Nav/>< ModifyDetails/> </>}/>
+                    <Route path="/bookmarks" element={<> <Nav/><BookmarksPage/> </>}/>
 
 
                 </Routes>

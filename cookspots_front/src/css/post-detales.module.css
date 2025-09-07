@@ -178,7 +178,7 @@ div#admin > a {
         margin-left: 0;
         width: 100%;
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(4, 1fr);
         justify-content: space-between;
         font-size: 17px;
     }
@@ -186,7 +186,7 @@ div#admin > a {
         display: flex;
         justify-content: center;
         align-items: center;
-        flex-direction: column;
+
     }
 
     .post-icons > span {

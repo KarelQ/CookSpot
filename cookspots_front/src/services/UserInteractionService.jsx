@@ -7,8 +7,23 @@ export const checkUserInteractions = (idPost) => {
     return tokenAxios.post(`${REST_API_BASE_URL}/check/${idPost}`);
 };
 
+export const getComments = (idPost) => {
+    return tokenAxios.get(`${REST_API_BASE_URL}/comment/get/${idPost}`);
+};
+
+export const updateStars = (data) => {
+    return tokenAxios.post(`${REST_API_BASE_URL}/stars/update`, data);
+};
+
+export const addComment = (data) => {
+    return tokenAxios.post(`${REST_API_BASE_URL}/comment/add`, data);
+};
 
 
+
+export const bookmarkUpdate = (data) => {
+    return tokenAxios.post(`${REST_API_BASE_URL}/bookmark/update`, data);
+};
 
 export const isPostIdBookmarkedByUserId = (post_id, user_id) => axios.get(REST_API_BASE_URL +'/' + post_id +'/'+user_id);
 

@@ -60,7 +60,8 @@ public class SecurityConfig {
                                 "/auth/posts/category/**",
                                 "/auth/posts",
                                 "/auth/img/**",
-                                "/auth/category"
+                                "/auth/category",
+                                "/auth/user_interaction/comment/get/**"
                         ).permitAll()
 
                         // Role-based endpoints
@@ -68,8 +69,10 @@ public class SecurityConfig {
                                 "/auth/user/**",
                                 "/auth/posts/user/**",
                                 "/auth/posts/addpost",
+                                "/auth/posts/bookmarks/**",
                                 "/auth/upload",
-                                "/auth/user_interaction/**"
+                                "/auth/user_interaction/**",
+                                "/auth/user_interaction/comment/add/**"
                                 ).hasAuthority("ROLE_USER")
 
                         .requestMatchers("/auth/admin/**"

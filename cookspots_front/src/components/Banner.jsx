@@ -16,8 +16,16 @@ const WelcomeText = styled.h1`
   color: #ffffff;
 `;
 
-const Banner = ({ message }) => {
+const Banner = ({ message, noSerchbar}) => {
     if (!message) return null;
+
+    if (noSerchbar){
+        return (
+            <Header>
+                <WelcomeText>{message}</WelcomeText>
+            </Header>
+        );
+    }
 
     return (
         <Header>
