@@ -78,7 +78,7 @@ public ResponseEntity<?> authenticateAndGetToken(@RequestBody AuthRequest authRe
                 new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword())
         );
         if (authentication.isAuthenticated()) {
-            String token = jwtService.generateToken(authRequest.getUsername(), service.getIdUser(authRequest.getUsername()));
+            String token = jwtService.generateToken(authRequest.getUsername(), service.getIdUser(authRequest.getUsername()), service.getRole(authRequest.getUsername()));
             return ResponseEntity.ok(token);
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid user request!");

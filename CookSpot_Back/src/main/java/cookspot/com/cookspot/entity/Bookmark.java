@@ -1,5 +1,6 @@
 package cookspot.com.cookspot.entity;
 
+import cookspot.com.cookspot.embeddedId.BookmarkId;
 import jakarta.persistence.*;
 
 

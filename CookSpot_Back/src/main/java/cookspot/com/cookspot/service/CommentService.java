@@ -2,7 +2,7 @@ package cookspot.com.cookspot.service;
 
 import cookspot.com.cookspot.dto.CommentsDTO;
 import cookspot.com.cookspot.entity.Comment;
-import cookspot.com.cookspot.entity.CommentId;
+import cookspot.com.cookspot.embeddedId.CommentId;
 import cookspot.com.cookspot.entity.UserInfo;
 import cookspot.com.cookspot.repository.CommentRepository;
 import cookspot.com.cookspot.repository.UserInfoRepository;

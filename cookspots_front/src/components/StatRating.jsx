@@ -1,6 +1,9 @@
 import React, {useEffect, useState} from "react";
 import { updateStars } from "../services/UserInteractionService.jsx"
 import style from '/src/css/post-detales.module.css'
+import ReportIcon from "./ReportIcon.jsx";
+import StarIcon from "./StarIcon.jsx";
+
 
 
 const StarRating = ({ idPost, vote}) => {
@@ -24,22 +27,15 @@ const StarRating = ({ idPost, vote}) => {
         }
     };
 
-    return (
+    return (<>
+
         <div className={style["stars"]}>
             {[1, 2, 3, 4, 5].map((star) => (
-                <i
-                    key={star}
-                    className="material-symbols-outlined"
-                    onClick={() => handleClick(star)}
-                    style={{
-                        color: star <= rating ? "#FB8A22" : "#ccc", // złote gwiazdki albo szare
-                        marginRight: "5px",
-                    }}
-                >
-                    star
-                </i>
+                <StarIcon key={star} value={star} rating={rating} onClick={handleClick} />
             ))}
         </div>
+            <ReportIcon idPost={idPost} />
+        </>
     );
 };
 

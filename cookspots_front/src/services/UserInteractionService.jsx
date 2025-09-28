@@ -25,6 +25,10 @@ export const bookmarkUpdate = (data) => {
     return tokenAxios.post(`${REST_API_BASE_URL}/bookmark/update`, data);
 };
 
+export const addReport = (data) => {
+    return tokenAxios.post(`${REST_API_BASE_URL}/report/add`, data);
+};
+
 export const isPostIdBookmarkedByUserId = (post_id, user_id) => axios.get(REST_API_BASE_URL +'/' + post_id +'/'+user_id);
 
 export const newBookmark = (post_id, user_id) => axios.post(REST_API_BASE_URL +'/new/' + post_id +'/'+user_id);

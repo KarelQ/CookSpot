@@ -1,7 +1,7 @@
 package cookspot.com.cookspot.service;
 
 import cookspot.com.cookspot.entity.Bookmark;
-import cookspot.com.cookspot.entity.BookmarkId;
+import cookspot.com.cookspot.embeddedId.BookmarkId;
 import cookspot.com.cookspot.entity.Post;
 import cookspot.com.cookspot.repository.BookmarkRepository;
 import cookspot.com.cookspot.repository.PostRepository;

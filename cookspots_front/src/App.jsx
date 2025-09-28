@@ -43,6 +43,10 @@ function App() {
                     <Route path="/adddetails" element={<> <Nav/>< ModifyDetails/> </>}/>
                     <Route path="/bookmarks" element={<> <Nav/><BookmarksPage/> </>}/>
 
+                    {/*Admin routes*/}
+
+
+
 
                 </Routes>
             </BrowserRouter>

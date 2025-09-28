@@ -1,4 +1,4 @@
-package cookspot.com.cookspot.entity;
+package cookspot.com.cookspot.embeddedId;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;

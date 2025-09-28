@@ -60,5 +60,14 @@ public class UserInfoService implements UserDetailsService {
     }
 
 
+    public String getRole(String email) {
+        Optional<UserInfo> userInfo = repository.findByEmail(email);
+        if (userInfo.isEmpty()) {
+            throw new UsernameNotFoundException("User not found with email: " + email);
+        }
+        return userInfo.get().getRole();
+    }
+
+
 
 }

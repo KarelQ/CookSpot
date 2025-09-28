@@ -1,9 +1,7 @@
 package cookspot.com.cookspot.repository;
 
-import cookspot.com.cookspot.entity.Bookmark;
-import cookspot.com.cookspot.entity.BookmarkId;
 import cookspot.com.cookspot.entity.Rating;
-import cookspot.com.cookspot.entity.RatingId;
+import cookspot.com.cookspot.embeddedId.RatingId;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

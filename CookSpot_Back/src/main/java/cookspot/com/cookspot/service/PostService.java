@@ -1,8 +1,9 @@
 package cookspot.com.cookspot.service;
+import cookspot.com.cookspot.dto.ReportedPostDTO;
 import cookspot.com.cookspot.entity.Category;
+import cookspot.com.cookspot.entity.PostReportsSummary;
 import cookspot.com.cookspot.entity.UserInfo;
-import cookspot.com.cookspot.repository.CategoryRepository;
-import cookspot.com.cookspot.repository.PostRepository;
+import cookspot.com.cookspot.repository.*;
 import cookspot.com.cookspot.entity.Post;
 import cookspot.com.cookspot.dto.PostDTO;
 
@@ -10,10 +11,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
-
-import cookspot.com.cookspot.repository.UserInfoRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,12 +22,29 @@ import org.springframework.stereotype.Service;
 @Service
 public class PostService {
 
-    @Autowired
+
     private PostRepository postRepository;
-    @Autowired
     private UserInfoRepository userRepository;
-    @Autowired
     private CategoryRepository categoryRepository;
+
+    private PostReportsSummaryRepository postReportsSummaryRepository;
+    private PostReportsRepository  postReportsRepository;
+
+    private PostReportsSummaryServices  postReportsSummaryServices;
+    private PostReportsService postReportsService;
+
+    @Autowired
+    public PostService(PostRepository postRepository, PostReportsService postReportsService, PostReportsSummaryServices postReportsSummaryServices, PostReportsRepository postReportsRepository, PostReportsSummaryRepository postReportsSummaryRepository, CategoryRepository categoryRepository, UserInfoRepository userRepository) {
+        this.postRepository = postRepository;
+        this.postReportsService = postReportsService;
+        this.postReportsSummaryServices = postReportsSummaryServices;
+        this.postReportsRepository = postReportsRepository;
+        this.postReportsSummaryRepository = postReportsSummaryRepository;
+        this.categoryRepository = categoryRepository;
+        this.userRepository = userRepository;
+    }
+
+
 
     public PostDTO convertPostToPostDTO(Post post) {
         PostDTO postDTO = new PostDTO();
@@ -100,6 +117,7 @@ public class PostService {
 
         post.setLikes(0);
         post.setDislike(0);
+        post.setStarsScore(0.F);
         post.setUser(user);
 
         post.setImage(postDTO.getImage());
@@ -142,5 +160,41 @@ public class PostService {
     public boolean isOwner(String idPost, String idUser) {
         Post post = postRepository.findById(idPost).orElse(null);
         return post != null && post.getUser().getIdUser().equals(idUser);
+    }
+
+    public ReportedPostDTO convertPostToReportedPostDTO(Post post, PostReportsSummary postReportsSummary) {
+        ReportedPostDTO dto = new ReportedPostDTO();
+
+        dto.setIdPost(post.getIdPost());
+        dto.setTitle(post.getTitle());
+        dto.setDescription(post.getDescription());
+        dto.setIngredients(post.getIngredients());
+        dto.setRecipe(post.getRecipe());
+        dto.setImage(post.getImage());
+        dto.setCreatedAt(post.getCreatedAt());
+        dto.setLike(post.getLikes());
+        dto.setDislike(post.getDislike());
+        dto.setUsername(post.getUser().getUsername());
+        dto.setIdUser(post.getUser().getIdUser());
+        dto.setNumberOfReports(postReportsSummary.getNumberOfReports());
+
+        return dto;
+
+    }
+
+    public List<ReportedPostDTO> getAllReportedPostsDTO() {
+        List<PostReportsSummary> summaries = postReportsSummaryRepository.findAll();
+
+        return summaries.stream()
+                .map(summary -> {
+                    Post post = postRepository.findById(summary.getIdPost())
+                            .orElse(null);
+                    if (post != null) {
+                        return convertPostToReportedPostDTO(post, summary);
+                    }
+                    return null;
+                })
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
     }
 }

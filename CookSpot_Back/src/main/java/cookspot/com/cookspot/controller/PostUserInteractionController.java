@@ -4,8 +4,10 @@ package cookspot.com.cookspot.controller;
 import cookspot.com.cookspot.dto.CommentsDTO;
 import cookspot.com.cookspot.dto.PostDTO;
 import cookspot.com.cookspot.dto.PostUserInteractionDTO;
+import cookspot.com.cookspot.entity.ReportedPost;
 import cookspot.com.cookspot.repository.RatingRepository;
 import cookspot.com.cookspot.service.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,14 +25,17 @@ public class PostUserInteractionController {
     private final JwtService jwtService;
     private final RatingService ratingService;
     private final CommentService commentService;
+    private final PostReportsService postReportsService;
 
-    public PostUserInteractionController(BookmarkService bookmarkService, PostService postService, UserInfoService userInfoService, JwtService jwtService, RatingService ratingService , CommentService commentService) {
+    @Autowired
+    public PostUserInteractionController(BookmarkService bookmarkService, PostService postService, UserInfoService userInfoService, JwtService jwtService, RatingService ratingService , CommentService commentService,  PostReportsService postReportsService) {
         this.bookmarkService = bookmarkService;
         this.postService = postService;
         this.userInfoService = userInfoService;
         this.jwtService = jwtService;
         this.ratingService = ratingService;
         this.commentService = commentService;
+        this.postReportsService = postReportsService;
     }
 
 
@@ -111,12 +116,26 @@ public class PostUserInteractionController {
         String idUser = jwtService.extractIdUserFromHeader(authorizationHeader);
         String idPost = body.get("idPost");
         String comment = body.get("comment_content");
-        System.out.println(idUser+"\n postid :"+idPost+"\n comment :"+comment);
+
         if(commentService.addNewComment(idUser, idPost, comment)){
             return ResponseEntity.ok().build();
         } else {
             return ResponseEntity.badRequest().build();
         }
+    }
+
+    @PostMapping("/report/add")
+    public ResponseEntity<ReportedPost> addReport(@RequestBody Map<String, String> body, @RequestHeader("Authorization") String authorizationHeader) {
+        String idUser = jwtService.extractIdUserFromHeader(authorizationHeader);
+        String idPost = body.get("idPost");
+        String report = body.get("report_content");
+
+        if(postReportsService.addNewReport(idUser, idPost, report)){
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
+
     }
 
 }

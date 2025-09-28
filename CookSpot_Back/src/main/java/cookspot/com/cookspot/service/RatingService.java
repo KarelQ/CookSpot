@@ -1,8 +1,7 @@
 package cookspot.com.cookspot.service;
 
 import cookspot.com.cookspot.entity.Rating;
-import cookspot.com.cookspot.entity.RatingId;
-import cookspot.com.cookspot.repository.BookmarkRepository;
+import cookspot.com.cookspot.embeddedId.RatingId;
 import cookspot.com.cookspot.repository.RatingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

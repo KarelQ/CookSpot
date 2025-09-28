@@ -1,7 +1,7 @@
 package cookspot.com.cookspot.repository;
 
+import cookspot.com.cookspot.embeddedId.CommentId;
 import cookspot.com.cookspot.entity.*;
-import org.springframework.data.domain.Limit;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

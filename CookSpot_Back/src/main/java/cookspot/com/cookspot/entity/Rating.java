@@ -1,5 +1,6 @@
 package cookspot.com.cookspot.entity;
 
+import cookspot.com.cookspot.embeddedId.RatingId;
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
