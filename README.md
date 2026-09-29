@@ -57,18 +57,6 @@ The project includes a comprehensive design and structure for the database, ensu
    - [View Database_dump Script](./sql_dump.sql)
      
 
-## Design patterns
-
-1. **MVC (Model-View-Controller)**
-   - Separates the application into Model, View, and Controller components.
-   - **Example**: [dto/PostDTO.java](./Backend/src/main/java/com/example/cookspot/dto/PostDTO.java), [entity/Post.java](./Backend/src/main/java/com/example/cookspot/entity/Post.java), [/controller/PostController.java](./Backend/src/main/java/com/example/cookspot/controller/PostController.java)
-2. **Repository**
-   - Abstracts the data layer, providing a modular structure.
-   - **Example**: [PostRepository.java](./Backend/src/main/java/com/example/cookspot/repository/PostRepository.java)
-
-3. **Template Method**
-   - Defines the skeleton of an algorithm in a method, deferring some steps to subclasses.
-   - **Example**: [/PostList.jsx](./frontend/src/components/PostList.jsx)
    
 
 ## Installation
